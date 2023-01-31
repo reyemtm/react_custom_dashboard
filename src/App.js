@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  //Sidebar
+  // const [open, setOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
 
   // const handleDrawerToggle = () => {
@@ -62,6 +63,7 @@ export default function App() {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>

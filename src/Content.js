@@ -3,21 +3,21 @@ import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import { withSize } from "react-sizeme";
 import TopBar from "./TopBar";
 import Widget from "./Widget";
-
-const originalItems = [
-  {
-    id: "a",
-  },
-  {
-    id: "b",
-  },
-  {
-    id: "c",
-  },
-  {
-    id: "d",
-  },
-];
+import { Widgets } from "./Widgets";
+// const originalItems = [
+//   {
+//     id: "a",
+//   },
+//   {
+//     id: "b",
+//   },
+//   {
+//     id: "c",
+//   },
+//   {
+//     id: "d",
+//   },
+// ];
 
 const initialLayouts = {
   lg: [
@@ -28,7 +28,7 @@ const initialLayouts = {
   ],
 };
 function Content({ size: { width } }) {
-  const [items, setItems] = useState(originalItems);
+  const [items, setItems] = useState(Widgets);
   const [layouts, setLayouts] = useState(
     getFromLS("layouts") || initialLayouts
   );
@@ -52,7 +52,7 @@ function Content({ size: { width } }) {
         items={items.reduce((i, v) => [...i, v.id], [])}
         onRemoveItem={onRemoveItem}
         onAddItem={onAddItem}
-        originalItems={originalItems.reduce((i, v) => [...i, v.id], [])}
+        originalItems={Widgets.reduce((i, v) => [...i, v.id], [])}
       />
       <ResponsiveGridLayout
         className="layout"
@@ -63,7 +63,7 @@ function Content({ size: { width } }) {
         width={width}
         onLayoutChange={onLayoutChange}
       >
-        {items.map(({ id }) => (
+        {items.map(({ id, widget }) => (
           <div
             key={id}
             className="widget"
@@ -73,7 +73,7 @@ function Content({ size: { width } }) {
               id={id}
               onRemoveItem={onRemoveItem}
               backgroundColor="#867ae9"
-            />
+            >{widget}</Widget>
           </div>
         ))}
       </ResponsiveGridLayout>
