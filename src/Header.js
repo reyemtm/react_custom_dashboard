@@ -16,36 +16,36 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     color: theme.palette.text.primary,
     [theme.breakpoints.up("sm")]: {
-      zIndex: theme.zIndex.drawer + 1
-    }
+      zIndex: theme.zIndex.drawer + 1,
+    },
   },
   rightIcons: {
-    marginLeft: theme.spacing(0.5)
+    marginLeft: theme.spacing(0.5),
   },
   spacer: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 export default function Header({
   handleDrawerToggle,
   toggleDarkMode,
-  darkMode
+  darkMode,
 }) {
   const classes = useStyles();
   return (
     <AppBar position="fixed" className={classes.appbar}>
       <Toolbar>
-        <IconButton
+        {/* <IconButton
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerToggle}
           edge="start"
         >
           <MenuIcon />
-        </IconButton>
+        </IconButton> */}
         <Typography variant="h6" noWrap>
-          Medium
+          Dashboard
         </Typography>
         <div className={classes.spacer} />
         <IconButton
@@ -58,7 +58,7 @@ export default function Header({
           {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
 
-        <IconButton
+        {/* <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="start"
@@ -75,7 +75,7 @@ export default function Header({
           className={classes.rightIcons}
         >
           <AccountCircleIcon />
-        </IconButton>
+        </IconButton> */}
       </Toolbar>
     </AppBar>
   );
