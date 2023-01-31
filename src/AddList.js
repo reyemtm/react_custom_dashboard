@@ -15,13 +15,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const widgetNames = {
-  a: "A",
-  b: "B",
-  c: "C",
-  d: "D"
-};
-
 export default function AddList({
   items,
   onRemoveItem,
@@ -82,7 +75,7 @@ export default function AddList({
                       name={i}
                     />
                   }
-                  label={widgetNames[i]}
+                  label={i}
                   key={i}
                 />
               ))}

@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import { withSize } from "react-sizeme";
 import TopBar from "./TopBar";
 import Widget from "./Widget";
-
-const originalItems = ["a", "b", "c", "d"];
+import { Widgets } from "./Widgets";
+// const originalItems = [
+//   {
+//     id: "a",
+//   },
+//   {
+//     id: "b",
+//   },
+//   {
+//     id: "c",
+//   },
+//   {
+//     id: "d",
+//   },
+// ];
 
 const initialLayouts = {
   lg: [
     { i: "a", x: 0, y: 0, w: 1, h: 4 },
     { i: "b", x: 1, y: 0, w: 3, h: 4 },
     { i: "c", x: 4, y: 0, w: 1, h: 4 },
-    { i: "d", x: 0, y: 4, w: 2, h: 4 }
-  ]
+    { i: "d", x: 0, y: 4, w: 2, h: 4 },
+  ],
 };
 function Content({ size: { width } }) {
-  const [items, setItems] = useState(originalItems);
+  const [items, setItems] = useState(Widgets);
   const [layouts, setLayouts] = useState(
     getFromLS("layouts") || initialLayouts
   );
@@ -26,20 +39,20 @@ function Content({ size: { width } }) {
     saveToLS("layouts", layouts);
   };
   const onRemoveItem = (itemId) => {
-    setItems(items.filter((i) => i !== itemId));
+    setItems(items.filter((i) => i.id !== itemId));
   };
   const onAddItem = (itemId) => {
-    setItems([...items, itemId]);
+    setItems([...items, { id: itemId }]);
   };
 
   return (
     <>
       <TopBar
         onLayoutSave={onLayoutSave}
-        items={items}
+        items={items.reduce((i, v) => [...i, v.id], [])}
         onRemoveItem={onRemoveItem}
         onAddItem={onAddItem}
-        originalItems={originalItems}
+        originalItems={Widgets.reduce((i, v) => [...i, v.id], [])}
       />
       <ResponsiveGridLayout
         className="layout"
@@ -50,17 +63,17 @@ function Content({ size: { width } }) {
         width={width}
         onLayoutChange={onLayoutChange}
       >
-        {items.map((key) => (
+        {items.map(({ id, widget }) => (
           <div
-            key={key}
+            key={id}
             className="widget"
             data-grid={{ w: 3, h: 2, x: 0, y: Infinity }}
           >
             <Widget
-              id={key}
+              id={id}
               onRemoveItem={onRemoveItem}
               backgroundColor="#867ae9"
-            />
+            >{widget}</Widget>
           </div>
         ))}
       </ResponsiveGridLayout>
@@ -85,7 +98,7 @@ function saveToLS(key, value) {
     global.localStorage.setItem(
       "rgl-8",
       JSON.stringify({
-        [key]: value
+        [key]: value,
       })
     );
   }

@@ -4,7 +4,6 @@ import Card from "@material-ui/core/Card";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
-
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -26,26 +25,22 @@ const useStyles = makeStyles({
   }
 });
 
-const widgetNames = {
-  a: "A",
-  b: "B",
-  c: "C",
-  d: "D"
-};
-export default function Widget({ id, onRemoveItem }) {
+export default function Widget({ id, onRemoveItem, children }) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <div className={classes.header}>
         <Typography variant="h6" gutterBottom>
-          {widgetNames[id]}
+          {id}
         </Typography>
         <div className={classes.spacer} />
         <IconButton aria-label="delete" onClick={() => onRemoveItem(id)}>
           <CloseIcon fontSize="small" />
         </IconButton>
       </div>
-      <div className={classes.body} />
+      <div className={classes.body}>
+        {children}
+      </div>
     </Card>
   );
 }
